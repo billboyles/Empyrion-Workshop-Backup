@@ -34,7 +34,7 @@ Check the following:
 1. You have Python 3.6 or higher installed
 2. You have installed the required Pytyhon modules
 3. You have write permission to the backup folder
-4. You have read permission on the Steam workshop and Empyrion blueprint folders
+4. You have read permission to the Steam workshop and Empyrion blueprint folders
 5. Your Steam ID is correct
 6. The online title of the build matches that of the local epb and jpg files 
 
