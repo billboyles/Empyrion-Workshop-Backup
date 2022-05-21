@@ -49,6 +49,7 @@ def get_build_urls(workshop_url):
 
 def backup(backup_path, epb_path, epb_dirs, urls):
 	#TODO: move this into tkinter
+	#TODO: cover non-subscribed builds- does Steam have an API for getting epbs?
 	#TODO: Maybe split Steam downloads from unifcation with epb???
 	i = 1
 	for url in urls:
