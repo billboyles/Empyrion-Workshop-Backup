@@ -17,7 +17,7 @@ You need to get have the numeric Steam ID of the account you want to backup. The
 2. To obtain your own Steam ID, it is listed in the Account Details section of your account. Online, the link for Account Details is: (https://store.steampowered.com/account/). In the App, click the dropdown with your account name at the top right and select "Account Details".
 
 ### Workshop
-The tool will back up the web portion of every build in the target workshop. However, for the tool to include the .epb and main .jpg from the build in the backup folder, you must be subscribed to the build and the build must be in your Steam workshop folder.  
+The tool will back up the web portion of every build in the target workshop. However, for the tool to include the .epb and main .jpg from the build in the backup folder, these files must be on the local system. The tool will first check your Steam workshop folder, then your Empyrion blueprints folder. 
 
 ## Running EWB from the command line
 
@@ -30,6 +30,12 @@ That's it! EWB will download the title, description, and screenshots from the St
 
 ### Troubleshooting
 
-Ensure you have Python 3.6 or higher installed and have installed the required Pytyhon modules. Verify you are selecting a folder to which you have write permissions in which to backup the files. Check that your Steam ID is correct.
+Check the following:
+1. You have Python 3.6 or higher installed
+2. You have installed the required Pytyhon modules
+3. You have write permission to the backup folder
+4. You have read permission on the Steam workshop and Empyrion blueprint folders
+5. Your Steam ID is correct
+6. The online title of the build matches that of the local epb and jpg files 
 
 Please feel free to create an Issue or make a Pull Request. I'll respond as soon as possible.

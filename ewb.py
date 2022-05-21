@@ -1,7 +1,6 @@
 import requests, re, os, shutil, tkinter
 from bs4 import BeautifulSoup
 from tkinter import filedialog, simpledialog, messagebox
-epb_path = "C:/Program Files (x86)/Steam/steamapps/workshop/content/383120"
 
 def get_backup_path():
 	backup_path = tkinter.filedialog.askdirectory(title="Please select the desired backup folder", initialdir="C:/")
@@ -11,19 +10,18 @@ def get_backup_path():
 		tkinter.messagebox.showerror(title="Error", message="No backup path selected. Please try again.")
 	return backup_path
 
-def get_epb_dirs(epb_path):
-	epb_dirs = os.listdir(epb_path)
-	return epb_dirs
-
-def get_epb_files(epb_path, epb_dirs):
+def get_epb_files(steam_id):
+	paths = ["C:/Program Files (x86)/Steam/steamapps/workshop/content/383120", "C:/Program Files (x86)/Steam/steamapps/common/Empyrion - Galactic Survival/Saves/Blueprints/" + steam_id]
 	epb_files = []
-	temp = []
-	for epb_dir in epb_dirs:
-		temp = os.listdir(os.path.join(epb_path, epb_dir))
-		for item in temp:
-			file = os.path.join(epb_path, epb_dir, item)
-			if (os.path.isfile(file)) and (os.path.splitext(file)[1] in [".epb", ".jpg"]):
-				epb_files.append(file)
+	for epb_path in paths:
+		epb_dirs = os.listdir(epb_path)
+		temp = []
+		for epb_dir in epb_dirs:
+			temp = os.listdir(os.path.join(epb_path, epb_dir))
+			for item in temp:
+				file = os.path.join(epb_path, epb_dir, item)
+				if (os.path.isfile(file)) and (os.path.splitext(file)[1] in [".epb", ".jpg"]):
+					epb_files.append(file)
 	return epb_files
 
 def get_steam_id():
@@ -54,7 +52,7 @@ def get_build_urls(workshop_url):
 				urls.append(link['href'])
 	return urls
 
-def backup(backup_path, epb_path, epb_dirs, epb_files, urls):
+def backup(backup_path, epb_files, urls):
 	#TODO: move this into tkinter
 	i = 1
 	for url in urls:
@@ -102,15 +100,14 @@ def main():
 	backup_path = get_backup_path()
 	if not backup_path:
 		return
-	epb_dirs = get_epb_dirs(epb_path)
-	epb_files = get_epb_files(epb_path, epb_dirs)
 	steam_id = get_steam_id()
 	workshop_url = get_workshop_url(steam_id)
 	if test_workshop_url(workshop_url):
 		urls = get_build_urls(workshop_url)
 	else:
 		return
-	backup(backup_path, epb_path, epb_dirs, epb_files, urls)
+	epb_files = get_epb_files(steam_id)
+	backup(backup_path, epb_files, urls)
 
 if __name__ == "__main__":
     main()
