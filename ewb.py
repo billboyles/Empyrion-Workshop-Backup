@@ -16,13 +16,20 @@ def get_epb_dirs(epb_path):
 	return epb_dirs
 
 def get_steam_id():
-	#TODO: hasndle invalid Steam IDs
 	steam_id = tkinter.simpledialog.askstring(title="Steam ID", prompt="Please enter the Steam ID to be backed up")
 	return steam_id
 
 def get_workshop_url(steam_id):
 	workshop_url = "https://steamcommunity.com/profiles/" + steam_id + "/myworkshopfiles/?appid=383120"
 	return workshop_url
+
+def test_workshop_url(workshop_url):
+	r = requests.get(workshop_url)
+	if "Error" in r.text:
+		tkinter.messagebox.showerror(title="Error", message="Sorry, that's not a valid Steam ID. See the readme for info on how to locate your Steam ID.")
+		return False
+	else:
+		return True
 
 def get_build_urls(workshop_url):
 	urls = []
@@ -82,7 +89,10 @@ def main():
 	epb_dirs = get_epb_dirs(epb_path)
 	steam_id = get_steam_id()
 	workshop_url = get_workshop_url(steam_id)
-	urls = get_build_urls(workshop_url)
+	if test_workshop_url(workshop_url):
+		urls = get_build_urls(workshop_url)
+	else:
+		return
 	backup(backup_path, epb_path, epb_dirs, urls)
 
 if __name__ == "__main__":
