@@ -8,7 +8,7 @@ def get_backup_path():
 	if backup_path:
 		tkinter.messagebox.showinfo(title="Selected file", message="Selected: " + backup_path)
 	else: 
-		tkinter.messagebox.showerror(title="Error", message="No backup path selected")
+		tkinter.messagebox.showerror(title="Error", message="No backup path selected. Please try again.")
 	return backup_path
 
 def get_epb_dirs(epb_path):
@@ -49,6 +49,7 @@ def get_build_urls(workshop_url):
 
 def backup(backup_path, epb_path, epb_dirs, urls):
 	#TODO: move this into tkinter
+	#TODO: Maybe split Steam downloads from unifcation with epb???
 	i = 1
 	for url in urls:
 		print(f"trying {i}...")
