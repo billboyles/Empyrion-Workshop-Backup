@@ -10,15 +10,14 @@ EWB currently only runs on Windows and has only been tested on Windows 10 but sh
 EWB currently requires the following to be installed on the system: Python 3.6 or higher, the Python Requests module, the Beautiful Soup 4 module. 
 
 ### Steam ID
-You need to get have the numeric Steam ID of the account you want to backup. There are two ways to obtain this.
+You need to get have the numeric Steam ID of the account you want to backup. There are two ways to obtain this:
 
 1. Look in the URL of the workshop: `https://steamcommunity.com/profiles/<Numeric Steam ID>/myworkshopfiles`.
 
 2. To obtain your own Steam ID, it is listed in the Account Details section of your account. Online, the link for Account Details is: (https://store.steampowered.com/account/). In the App, click the dropdown with your account name at the top right and select "Account Details".
 
 ### Workshop
-Currently, you must be subscribed to every build on the target workshop. This will be changed in a future version.  
-
+The tool will back up the web portion of every build in the target workshop. However, for the tool to include the .epb and main .jpg from the build in the backup folder, you must be subscribed to the build and the build must be in your Steam workshop folder.  
 
 ## Running EWB from the command line
 
