@@ -22,9 +22,8 @@ def get_epb_files(epb_path, epb_dirs):
 		temp = os.listdir(os.path.join(epb_path, epb_dir))
 		for item in temp:
 			file = os.path.join(epb_path, epb_dir, item)
-			if os.path.isfile(file):
-				if os.path.splitext(file)[1] in [".epb", ".jpg"]:
-					epb_files.append(file)
+			if (os.path.isfile(file)) and (os.path.splitext(file)[1] in [".epb", ".jpg"]):
+				epb_files.append(file)
 	return epb_files
 
 def get_steam_id():
@@ -36,8 +35,7 @@ def get_workshop_url(steam_id):
 	return workshop_url
 
 def test_workshop_url(workshop_url):
-	r = requests.get(workshop_url)
-	if "Error" in r.text:
+	if "Error" in requests.get(workshop_url).text:
 		tkinter.messagebox.showerror(title="Error", message="Sorry, that's not a valid Steam ID. See the readme for info on how to locate your Steam ID.")
 		return False
 	else:
@@ -45,14 +43,11 @@ def test_workshop_url(workshop_url):
 
 def get_build_urls(workshop_url):
 	urls = []
-	r = requests.get(workshop_url + "&p=1&numperpage=30").text
-	soup = BeautifulSoup(r, "html.parser")
+	soup = BeautifulSoup(requests.get(workshop_url + "&p=1&numperpage=30").text, "html.parser")
 	q, mod = divmod(int(soup.find("div", class_="workshopBrowsePagingInfo").string.split()[3]), 30)
 	pages = q if mod == 0 else q + 1
 	for n in range(0, pages):
-		print(workshop_url + "&p=" + str(n + 1) + "&numperpage=30")
-		r = requests.get(workshop_url + "&p=" + str(n + 1) + "&numperpage=30").text
-		soup = BeautifulSoup(r, "html.parser")
+		soup = BeautifulSoup(requests.get(workshop_url + "&p=" + str(n + 1) + "&numperpage=30").text, "html.parser")
 		links = soup.select("div.workshopItem > a.ugc")
 		for link in links:
 			if link.has_attr("href"):
@@ -61,12 +56,10 @@ def get_build_urls(workshop_url):
 
 def backup(backup_path, epb_path, epb_dirs, epb_files, urls):
 	#TODO: move this into tkinter
-	#TODO: Maybe split Steam downloads from unifcation with epb???
 	i = 1
 	for url in urls:
 		print(f"trying {i}...")
-		r = requests.get(url).text
-		soup = BeautifulSoup(r, "html.parser")
+		soup = BeautifulSoup(requests.get(url).text, "html.parser")
 		title = re.findall("::(.*)<", str(soup.find("title")))[0].replace(":", " -").replace("/", "-")
 		print(f"Found build: {title}")
 		print("Starting download from Steam...")
