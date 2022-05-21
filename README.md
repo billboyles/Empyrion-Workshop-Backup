@@ -12,7 +12,7 @@ EWB currently requires the following to be installed on the system: Python 3.6 o
 ### Steam ID
 You need to get have the numeric Steam ID of the account you want to backup. There are two ways to obtain this.
 
-1. Look in the URL of the workshop: \https://steamcommunity.com/profiles/<Numeric Steam ID>/myworkshopfiles\.
+1. Look in the URL of the workshop: `https://steamcommunity.com/profiles/<Numeric Steam ID>/myworkshopfiles`.
 
 2. To obtain your own Steam ID, it is listed in the Account Details section of your account. Online, the link for Account Details is: (https://store.steampowered.com/account/). In the App, click the dropdown with your account name at the top right and select "Account Details".
 
